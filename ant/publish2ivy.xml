@@ -1,0 +1,13 @@
+<project name="si-driver" basedir=".." default="main" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<target name="main" >
+		<ivy:resolve file="ivy.xml" refresh="true" />
+
+		<ivy:publish organisation="neodatis" module="odb" resolver="local" overwrite="true" forcedeliver="true">
+			<artifacts pattern="dist/[artifact].[ext]" />
+		</ivy:publish>
+
+	</target>
+
+
+</project>

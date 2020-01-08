@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.neodatis.odb</groupId>
+	<artifactId>neodatis-odb</artifactId>
+	<packaging>jar</packaging>
+	<properties>
+        <maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
+        <src.dir>${project.build.sourceDirectory}</src.dir>
+        <package.dir>org/neodatis/odb</package.dir>
+        <package.name>org.neodatis.odb</package.name>
+        <buildtime>${maven.build.timestamp}</buildtime>
+        <filename>${src.dir}/${package.dir}/Release.java</filename>
+
+    </properties>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>${jconcept-maven-deploy-directory-snapshot-id}</id>
+			<url>${jconcept-maven-deploy-directory-snapshot-url}</url>
+		</snapshotRepository>
+		<repository>
+			<id>${jconcept-maven-deploy-directory-release-id}</id>
+			<url>${jconcept-maven-deploy-directory-release-url}</url>
+		</repository>
+	</distributionManagement>
+ 
+	<dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.9</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
+    </dependencies>
+	<version>2.4.beta4</version>
+	<build>
+		<finalName>neodatis-odb</finalName>
+		<sourceDirectory>${project.basedir}/src/</sourceDirectory>
+		<resources>
+            <resource>
+                <directory>${project.basedir}/src-gui/</directory>
+            </resource>
+
+		</resources>
+		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>verify</phase> <!--generated source was getting errors -->
+                        <configuration>
+                            <tasks>
+
+                                <buildnumber />
+                                <echo file="${filename}" message="package ${package.name};${line.separator}" />
+                                <echo file="${filename}" append="true"
+                                      message="public final class Release {${line.separator}" />
+                                <echo file="${filename}" append="true"
+                                      message=" public static String RELEASE_DATE=&quot;${buildtime}&quot;;${line.separator}" />
+                                <echo file="${filename}" append="true"
+                                      message=" public static String RELEASE_BUILD=&quot;${build.number}&quot;;${line.separator}" />
+                                <echo file="${filename}" append="true"
+                                      message=" public static String VERSION=&quot;${version}&quot;;${line.separator}" />
+
+                                <echo file="${filename}" append="true" message="}${line.separator}" />
+
+                                <echo message="BUILD ${buildtime} - ${build.number}" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/src-gui</source>
+								<source>${project.basedir}/src-jdbm</source>
+								<source>${project.basedir}/src-tool</source>
+								<source>${project.basedir}/src-xml</source>
+								<source>${project.basedir}/src-ant</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.neodatis.odb.gui.ODBExplorerMain</mainClass>
+                            <packageName>NeoDatis ODB</packageName>
+                        </manifest>
+                        <manifestEntries>
+                            <url>www.neodatis.org</url>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+</project>

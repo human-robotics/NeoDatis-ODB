@@ -1,0 +1,18 @@
+<project name="Meta Generator" basedir=".." default="main">
+
+	<taskdef name="generateMeta" classname="org.neodatis.odb.ant.NeoDatisMetaAntEnhancer" classpath="bin" />
+
+	<target name="main2">
+
+		<generateMeta metapackage="meta" classpath="bin">
+			<fileset dir="src-ant">
+				<include name="**/User.java" />
+			</fileset>
+		</generateMeta>
+	</target>
+
+	<target name="main">
+
+		<java classname="org.neodatis.odb.ant.NeoDatisMetaAntEnhancer" args="src-ant/org/neodatis/odb/ant/vo meta" classpath="bin" />
+	</target>
+</project>

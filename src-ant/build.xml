@@ -1,0 +1,7 @@
+<project name="Meta Generator" basedir=".." default="main">
+
+	<target name="main">
+
+		<java classname="org.neodatis.odb.tool.NeoDatisMetaClassesGenerator" args="${basedir}/src-ant org.neodatis.odb.ant.vo,org.neodatis.odb.ant.vo2 meta" classpath="bin" />
+	</target>
+</project>

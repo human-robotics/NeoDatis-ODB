@@ -1,0 +1,26 @@
+/**
+ * 
+ */
+package @package;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+
+/**
+ * @author NeoDatis
+ * 
+ */
+public class @class-name extends TestSuite {
+	public @class-name() {
+		super();
+	}
+
+	public static Test suite() {
+		TestSuite suite = new TestSuite();
+
+@tests
+
+		return suite;
+	}
+}

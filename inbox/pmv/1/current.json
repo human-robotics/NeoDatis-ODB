@@ -1,0 +1,8 @@
+{
+"actionId":"2",
+"actionType":"pmv-video",
+"destinationId":"1",
+"messageId":"1",
+"messageDescription":"inbox/pmv/1/files/video1.mp4",
+"emergency": "true"
+}

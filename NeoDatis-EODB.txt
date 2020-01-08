@@ -1,0 +1,51 @@
+NeoDatis V2 EE
+
+- same api and simplicity
+- sql support
+- native tagging
+- distributed
+- online backup
+- efficient getLastXObjects
+- better cache (weak references)
+- limit depth of update/load
+- object reference integrity
+- Store native objects?
+- Manage Collections, arrays and maps as independent objects with their own OID (maybe a kind of derivative of the owner id
+- OSGI
+- Full refactor manager (keep all versions of class modifications). Class OId will have a version. Object OID could refere the the class Oid will version
+- 
+-------
+- refactor current api to isolate writing
+  - layer 1: objects 
+  - layer 2: meta representation
+  - layer 3:bytes
+  - layer 4:IO
+the layer 3 is layer3.toBytes(NonNativeObjectInfo nnoi) and NonNativeObjectInfo fromBytes(byte[]bytes) 
+
+the layer4 is layer4.writeByte(Oid oid,byte[] bytes) and byte[] read(OID  oid)
+
+use a kv store
+
+--------------------
+API Change
+getObjectId -> getObjectOid
+query api
+
+removed 	IRefactorManager getRefactorManager(); from ODB -> ODBExt
+
+TODO:
+- check classloader reset becasue of introspectorFactory
+- take trigger unit test : OID Trigger, Return values.
+- Uncomment step16 : in Tutorial1
+- When adding an index, and updating index use getValues instead of getMeta
+-------
+Next:
+-- Index,
+ index must be called :
+ 	- after insert
+ 	- after update
+ 	- after delete
+Use Trigger to manage Index?! No
+=> implement triggers
+
+Enum
